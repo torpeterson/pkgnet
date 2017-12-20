@@ -1,0 +1,6 @@
+
+## My Child Doc 2
+
+```{r}
+print("Wow! Even more tabs")
+```

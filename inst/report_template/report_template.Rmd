@@ -1,0 +1,43 @@
+---
+params:
+  packageToReport: params$packageToReport
+  clean: params$clean # TRUE to clean intermediate files created during rendering
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# {.tabset .tabset-fade}
+## Dependencies
+
+```{r, results="asis"}
+reporters <- CreatePackageReport(params$packageToReport)
+result[[2]]$plot_network()
+```
+
+```{r}
+childReporterTabs <- lapply(reporters,function(reporter) {
+  knitr::knit_child(reporter$get_report_markdown_path()
+                    , envir = list(packageReporter = reporter))
+  } )
+```
+
+
+```{r results="asis"}
+cat(paste(childReporterTabs1, collapse = '\n'))
+```
+
+```{r results="asis"}
+cat(paste(childReporterTabs2, collapse = '\n'))
+```
+
+## Functions
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Text here.
